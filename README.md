@@ -10,26 +10,26 @@ To get started, simply clone this repository and open the `index.html` file in y
 
 The project structure is as follows:
 
-meal-prep-services/
-├── css/
-│ └── style.css
-├── js/
-│ └── app.js
-├── img/
-├── fonts/
-├── vendor/
-│ ├── bootstrap.min.css
-│ ├── bootstrap.min.js
-│ ├── jquery.min.js
-│ └── popper.min.js
-└── index.html
+- meal-prep-services/
+  - css/
+    - style.css
+  - js/
+    - app.js
+  - img/
+  - fonts/
+  - vendor/
+    - bootstrap.min.css
+    - bootstrap.min.js
+    - jquery.min.js
+    - popper.min.js
+  - index.html
 
-- `css/`: Contains the `style.css` file for styling the website.
-- `js/`: Contains the `app.js` file for the website's functionality.
-- `img/`: Contains images used in the website.
-- `fonts/`: Contains fonts used in the website.
-- `vendor/`: Contains external dependencies, including Bootstrap 5 CSS and JavaScript files, jQuery, and Popper.js.
-- `index.html`: The main HTML file that renders the website.
+* `css/`: Contains the `style.css` file for styling the website.
+* `js/`: Contains the `app.js` file for the website's functionality.
+* `img/`: Contains images used in the website.
+* `fonts/`: Contains fonts used in the website.
+* `vendor/`: Contains external dependencies, including Bootstrap 5 CSS and JavaScript files, jQuery, and Popper.js.
+* `index.html`: The main HTML file that renders the website.
 
 ## Contributing
 
