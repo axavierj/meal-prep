@@ -20,9 +20,294 @@
       defer
     ></script>
     <!-- vendor assets end -->
+    <!-- components start -->
+    <script src="./js/components/navbar.js" type="module" defer></script>
+    <script src="./js/components/footer.js" type="module" defer></script>
+    <!-- components end -->
+    <!-- custom styles start -->
+    <link rel="stylesheet" href="./css/main.css" />
+    <!-- custom styles end -->
+    <!-- custom scripts start -->
+    <script src="./js/main.js" type="module" defer></script>
+    <!-- custom scripts end -->
     <title>Document</title>
   </head>
   <body>
-    <h1>app</h1>
+    <a
+      id="scroll-to-top-btn"
+      class="btn btn-primary btn-lg btn-block"
+      href="#home"
+      ><i class="bi bi-arrow-up-circle-fill"></i
+    ></a>
+
+    <nav-bar></nav-bar>
+    <main>
+      <section class="jumbotron jumbotron-fluid text-white vh-100" id="home">
+        <div class="container d-flex align-items-center h-100">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1 class="display-3 text-light">
+                Welcome to Our Meal Prep Services
+              </h1>
+              <p class="lead">
+                Delicious, healthy meals delivered to your door
+              </p>
+              <a class="btn btn-primary btn-lg">Order Now</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="services-section vh-100" id="services">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h3>Our Services</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src="./css/assets/catering.png"
+                  alt="Catering"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Catering</h5>
+                  <p class="card-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src="./css/assets/mealprep.png"
+                  alt="Meal Prep"
+                  loading="lazy"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Meal Prep</h5>
+                  <p class="card-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img
+                  class="card-img-top"
+                  src="./css/assets/privatechef.png"
+                  alt="Private Chef"
+                  loading="lazy"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Private Chef</h5>
+                  <p class="card-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-md-12">
+                <p class="text-center">
+                  We take pride in offering excellent meal prep services to our
+                  customers. Our expert chefs create delicious and healthy meals
+                  using the freshest ingredients, and we deliver them straight
+                  to your doorstep. Whether you're looking for catering
+                  services, meal prep plans, or a private chef for a special
+                  occasion, we have you covered. Contact us today for more
+                  information and to place your order.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-light vh-100" id="about">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h2>About Us</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <img
+                src="./css/assets/about.png"
+                class="img-fluid"
+                alt="About Us Image"
+                loading="lazy"
+              />
+            </div>
+            <div class="col-md-6">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
+                convallis nibh. Donec non pulvinar lorem. Donec dignissim mauris
+                et elementum accumsan. Vestibulum pharetra massa quis lorem
+                vehicula faucibus. Donec et sem elit. Praesent fringilla tellus
+                eget purus malesuada, sed volutpat risus commodo.
+              </p>
+              <p>
+                Pellentesque nec semper magna, sit amet commodo nibh. Aliquam
+                erat volutpat. Sed ut tortor eget nisi sodales iaculis. Sed ut
+                arcu at nisl blandit gravida. Sed ut blandit justo. Nam volutpat
+                lacus a felis commodo sagittis. Nam convallis volutpat mauris eu
+                efficitur. Pellentesque habitant morbi tristique senectus et
+                netus et malesuada fames ac turpis egestas.
+              </p>
+              <a href="#contact" class="btn btn-primary">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="team-section text-center my-5 vh-100" id="team">
+        <div class="container">
+          <h2 class="mb-5">Our Team</h2>
+          <div class="row">
+            <div class="col-md-4 mb-md-0 mb-5">
+              <div class="avatar mx-auto">
+                <img
+                  src="https://via.placeholder.com/150"
+                  class="rounded-circle z-depth-1"
+                  alt="Sample avatar"
+                />
+              </div>
+              <h4 class="font-weight-bold dark-grey-text mt-4">John Doe</h4>
+              <h6 class="text-uppercase grey-text mb-3">CEO</h6>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <div class="col-md-4 mb-md-0 mb-5">
+              <div class="avatar mx-auto">
+                <img
+                  src="https://via.placeholder.com/150"
+                  class="rounded-circle z-depth-1"
+                  alt="Sample avatar"
+                />
+              </div>
+              <h4 class="font-weight-bold dark-grey-text mt-4">Jane Doe</h4>
+              <h6 class="text-uppercase grey-text mb-3">CFO</h6>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <div class="avatar mx-auto">
+                <img
+                  src="https://via.placeholder.com/150"
+                  class="rounded-circle z-depth-1"
+                  alt="Sample avatar"
+                />
+              </div>
+              <h4 class="font-weight-bold dark-grey-text mt-4">Jack Smith</h4>
+              <h6 class="text-uppercase grey-text mb-3">COO</h6>
+              <p class="grey-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container-fluid bg-light vh-100" id="contact">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h2>Contact Us</h2>
+              <hr class="my-4" />
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <form>
+                <div class="form-group mb-3">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="email">Email address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="Enter your email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea
+                    class="form-control"
+                    id="message"
+                    rows="5"
+                    placeholder="Enter your message"
+                  ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">
+                  Submit
+                </button>
+              </form>
+            </div>
+            <div class="col-md-6 text-center">
+              <h3>Get in Touch</h3>
+              <p>
+                We'd love to hear from you! You can use the form on the left to
+                send us a message or contact us through any of the channels
+                below.
+              </p>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="bi bi-geo-alt-fill"></i> 123 Main St, Anytown USA
+                </li>
+                <li><i class="bi bi-phone-fill"></i> (123) 456-7890</li>
+                <li>
+                  <i class="bi bi-envelope-fill"></i>
+                  <a href="mailto:info@mealprepservices.com"
+                    >info@mealprepservices.com</a
+                  >
+                </li>
+              </ul>
+              <div class="social-links">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"
+                  ><i class="bi bi-instagram"></i
+                ></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <site-footer></site-footer>
   </body>
 </html>

@@ -1,0 +1,47 @@
+html {
+  scroll-behavior: smooth;
+}
+
+#home {
+  background-image: url('./assets/hero_480.png');
+  background-size: cover;
+  background-position: center;
+}
+
+#scroll-to-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+#scroll-to-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media only screen and (min-width: 768px) {
+  #home {
+    background-image: url('./assets/hero_768.png');
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #home {
+    background-image: url('./assets/hero_992.png');
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  #home {
+    background-image: url('./assets/hero_1200.png');
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  #home {
+    background-image: url('./assets/hero_1920.png');
+  }
+}
