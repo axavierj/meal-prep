@@ -63,11 +63,13 @@ class Navbar extends HTMLElement {
       const links = JSON.parse(this.links)
       const nav = this.querySelector('#mainnav')
       nav.innerHTML = ''
-      nav.innerHTML = links.forEach((link) => {
-        return `<li class="nav-item">
+      nav.innerHTML = links
+        .map((link) => {
+          return `<li class="nav-item">
           <a class="nav-link" href="${link.href}">${link.name}</a>
         </li>`
-      })
+        })
+        .join()
     }
   }
 }

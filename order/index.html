@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- vendor assets start -->
+    <link
+      rel="stylesheet"
+      href="../vendor/bootstrap-5.2.3/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../vendor/bootswatch/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
+    />
+    <script
+      src="../vendor/bootstrap-5.2.3/js/bootstrap.min.js"
+      type="module"
+      defer
+    ></script>
+    <!-- vendor assets end -->
+    <!-- components start -->
+    <script src="../js/components/navbar.js" type="module" defer></script>
+    <script src="../js/components/footer.js" type="module" defer></script>
+    <!-- components end -->
+    <!-- custom styles start -->
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- custom styles end -->
+    <title>Document</title>
+  </head>
+  <body>
+    <nav-bar
+      links='[{"name":"Services","href":"/#services"},{"name":"About","href":"/#about"},{"name":"Contact","href":"/#contact"},{"name":"Team","href":"/#team"},{"name":"Menu","href":"/menu/"}]'
+    ></nav-bar>
+    <main>
+      <header class="bg-primary text-white text-center py-5">
+        <h1>Order Now</h1>
+        <p>Choose your meals for the week</p>
+      </header>
+      <section class="container py-5">
+        <h2 class="text-center mb-4">Menu for the Week</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Day 1</h3>
+            <form>
+              <div class="form-group">
+                <label for="day1-quantity">Quantity</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="day1-quantity"
+                  name="day1-quantity"
+                  min="0"
+                />
+              </div>
+              <div class="form-group">
+                <label for="day1-meal-type">Meal Type</label>
+                <select
+                  class="form-control"
+                  id="day1-meal-type"
+                  name="day1-meal-type"
+                >
+                  <option value="regular">Regular</option>
+                  <option value="keto">Keto</option>
+                  <option value="paleo">Paleo</option>
+                  <option value="lowcarb">Low Carb</option>
+                  <option value="hiprotein">High Protein</option>
+                  <option value="lowprotein">Low Protein</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="family">Family</option>
+                </select>
+              </div>
+              <button class="btn btn-secondary">
+                <i class="bi bi-cart-plus"></i>
+              </button>
+            </form>
+          </div>
+          <section class="col-md-6">
+            <h4>name of dish</h4>
+            <p>description of dish</p>
+          </section>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Day 2</h3>
+            <form>
+              <div class="form-group">
+                <label for="day1-quantity">Quantity</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="day1-quantity"
+                  name="day1-quantity"
+                  min="0"
+                />
+              </div>
+              <div class="form-group">
+                <label for="day1-meal-type">Meal Type</label>
+                <select
+                  class="form-control"
+                  id="day1-meal-type"
+                  name="day1-meal-type"
+                >
+                  <option value="regular">Regular</option>
+                  <option value="keto">Keto</option>
+                  <option value="paleo">Paleo</option>
+                  <option value="lowcarb">Low Carb</option>
+                  <option value="hiprotein">High Protein</option>
+                  <option value="lowprotein">Low Protein</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="family">Family</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <section class="col-md-6">
+            <h4>name of dish</h4>
+            <p>description of dish</p>
+          </section>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Day 3</h3>
+            <form>
+              <div class="form-group">
+                <label for="day1-quantity">Quantity</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="day1-quantity"
+                  name="day1-quantity"
+                  min="0"
+                />
+              </div>
+              <div class="form-group">
+                <label for="day1-meal-type">Meal Type</label>
+                <select
+                  class="form-control"
+                  id="day1-meal-type"
+                  name="day1-meal-type"
+                >
+                  <option value="regular">Regular</option>
+                  <option value="keto">Keto</option>
+                  <option value="paleo">Paleo</option>
+                  <option value="lowcarb">Low Carb</option>
+                  <option value="hiprotein">High Protein</option>
+                  <option value="lowprotein">Low Protein</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="family">Family</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Day 4</h3>
+            <form>
+              <div class="form-group">
+                <label for="day1-quantity">Quantity</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="day1-quantity"
+                  name="day1-quantity"
+                  min="0"
+                />
+              </div>
+              <div class="form-group">
+                <label for="day1-meal-type">Meal Type</label>
+                <select
+                  class="form-control"
+                  id="day1-meal-type"
+                  name="day1-meal-type"
+                >
+                  <option value="regular">Regular</option>
+                  <option value="keto">Keto</option>
+                  <option value="paleo">Paleo</option>
+                  <option value="lowcarb">Low Carb</option>
+                  <option value="hiprotein">High Protein</option>
+                  <option value="lowprotein">Low Protein</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="family">Family</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Day 5</h3>
+            <form>
+              <div class="form-group">
+                <label for="day1-quantity">Quantity</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="day1-quantity"
+                  name="day1-quantity"
+                  min="0"
+                />
+              </div>
+              <div class="form-group">
+                <label for="day1-meal-type">Meal Type</label>
+                <select
+                  class="form-control"
+                  id="day1-meal-type"
+                  name="day1-meal-type"
+                >
+                  <option value="regular">Regular</option>
+                  <option value="keto">Keto</option>
+                  <option value="paleo">Paleo</option>
+                  <option value="lowcarb">Low Carb</option>
+                  <option value="hiprotein">High Protein</option>
+                  <option value="lowprotein">Low Protein</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="family">Family</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <section class="mt-5">
+          <a href="/cart/" class="btn btn-primary">
+            <i class="bi bi-cart-fill"></i>
+            <span class="badge bg-secondary">3</span>
+          </a>
+        </section>
+      </section>
+    </main>
+    <site-footer></site-footer>
+  </body>
+</html>
