@@ -21,6 +21,7 @@
     ></script>
     <!-- vendor assets end -->
     <!-- components start -->
+    <script src="../js/components/loginForm.js" type="module" defer></script>
     <!-- components end -->
     <!-- custom styles start -->
     <link rel="stylesheet" href="../css/main.css" />
@@ -38,38 +39,7 @@
       <div class="d-flex mb-3">
         <section class="mx-auto display-2">login</section>
       </div>
-      <div>
-        <section class="container">
-          <form class="card p-4" id="loginForm">
-            <div class="bg-dark p-2 text-light">meal prep</div>
-            <hr />
-            <div class="form-group mb-3">
-              <label for="email">Email</label>
-              <input
-                type="text"
-                class="form-control"
-                id="email"
-                placeholder="Enter your email address"
-                required
-              />
-            </div>
-
-            <div class="form-group mb-3">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                placeholder="Password"
-                minlength="6"
-                required
-              />
-            </div>
-
-            <button class="btn btn-secondary">log in</button>
-          </form>
-        </section>
-      </div>
+      <login-form></login-form>
     </main>
   </body>
 </html>

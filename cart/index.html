@@ -24,12 +24,29 @@
     <script src="../js/components/navbar.js" type="module" defer></script>
     <script src="../js/components/footer.js" type="module" defer></script>
     <!-- components end -->
+    <script src="../js/cart.js" type="module" defer></script>
+    <!-- <script src="../js/payment.js" type="module" defer></script> -->
     <!-- custom styles start -->
     <link rel="stylesheet" href="../css/main.css" />
     <!-- custom styles end -->
+    <script
+      type="text/javascript"
+      src="https://sandbox.web.squarecdn.com/v1/square.js"
+    ></script>
     <title>Document</title>
   </head>
   <body>
+    <dialog id="payment" class="p-4">
+      <section class="mb-3">
+        <button class="btn btn-primary" id="closePayment">x</button>
+      </section>
+      <form id="payment-form">
+        <div id="card-container"></div>
+        <button id="card-button" type="button" class="btn btn-secondary">
+          Pay
+        </button>
+      </form>
+    </dialog>
     <nav-bar
       links='[{"name":"Services","href":"/#services"},{"name":"About","href":"/#about"},{"name":"Contact","href":"/#contact"},{"name":"Team","href":"/#team"},{"name":"Menu","href":"/menu/"}]'
     ></nav-bar>
@@ -50,10 +67,9 @@
               <th scope="col">Meal Type</th>
               <th scope="col">Quantity</th>
               <th scope="col">Price</th>
-              <th scope="col">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="cartSummary">
             <tr>
               <td>Monday</td>
               <td>Regular</td>
@@ -98,8 +114,22 @@
             </tr>
           </tbody>
         </table>
+        <section
+          class="container d-flex align-items-baseline mt-4"
+          id="Delivery"
+        ></section>
+        <section
+          class="container d-flex align-items-baseline mt-4"
+          id="subTotal"
+        ></section>
+        <section
+          class="container d-flex align-items-baseline mt-4"
+          id="Total"
+        ></section>
+
+        <div id="payment-status-container"></div>
         <div class="mt-5">
-          <button class="btn btn-secondary">
+          <button class="btn btn-secondary" id="checkout">
             <i class="bi bi-cart-check"></i>
           </button>
         </div>
