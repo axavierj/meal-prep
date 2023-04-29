@@ -12,9 +12,10 @@ const activeMenu = await getActiveMenu()
 
 menuTitle.innerHTML = activeMenu.title
 menuList.innerHTML = ''
-menuList.innerHTML = activeMenu.items.map(
-  (item) =>
-    `<li class="list-group-item">
+menuList.innerHTML = activeMenu.items
+  .map(
+    (item) =>
+      `<li class="list-group-item">
   <div class="row align-items-center">
     <div class="col-md-3">
       <img
@@ -29,6 +30,5 @@ menuList.innerHTML = activeMenu.items.map(
     </div>
   </div>
 </li>`
-)
-
-console.log(activeMenu)
+  )
+  .join('')

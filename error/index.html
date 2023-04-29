@@ -14,6 +14,8 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
     />
+    <script src="../js/components/routGuard.js" type="module"></script>
+
     <script
       src="../vendor/bootstrap-5.2.3/js/bootstrap.min.js"
       type="module"
@@ -30,22 +32,24 @@
     <title>Document</title>
   </head>
   <body>
-    <nav-bar
-      links='[{"name":"Services","href":"/#services"},{"name":"About","href":"/#about"},{"name":"Contact","href":"/#contact"},{"name":"Team","href":"/#team"},{"name":"Menu","href":"/menu/"}]'
-    ></nav-bar>
-    <main class="vh-100">
-      <div class="container">
-        <div class="row mt-5">
-          <div class="col-md-6 offset-md-3 text-center">
-            <h1 class="display-4">Oops! Something went wrong.</h1>
-            <p class="lead">
-              We're sorry, but there was an error processing your request.
-            </p>
-            <a href="/" class="btn btn-primary">Go back to homepage</a>
+    <rout-guard>
+      <nav-bar
+        links='[{"name":"Services","href":"/#services"},{"name":"About","href":"/#about"},{"name":"Contact","href":"/#contact"},{"name":"Team","href":"/#team"},{"name":"Menu","href":"/menu/"}]'
+      ></nav-bar>
+      <main class="vh-100">
+        <div class="container">
+          <div class="row mt-5">
+            <div class="col-md-6 offset-md-3 text-center">
+              <h1 class="display-4">Oops! Something went wrong.</h1>
+              <p class="lead">
+                We're sorry, but there was an error processing your request.
+              </p>
+              <a href="/" class="btn btn-primary">Go back to homepage</a>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-    <site-footer></site-footer>
+      </main>
+      <site-footer></site-footer>
+    </rout-guard>
   </body>
 </html>
