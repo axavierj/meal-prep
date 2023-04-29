@@ -8,7 +8,7 @@ const tostTemplate = `  <div class="toast-container position-fixed bottom-0 end-
     </div>
 </div>
 </div>`
-const badge = document.querySelector('#badge')
+const badge = document.querySelector('badge-component')
 
 let cart = []
 const user = JSON.parse(sessionStorage.getItem('user'))
@@ -18,26 +18,16 @@ const menu = await fetch('http://localhost:5000/api/menus?active=true')
 const customer = await fetch(`http://localhost:5000/api/customer/${user.sqid}`)
 
 const customerData = await customer.json()
-// console.log(customerData)
 
 const menuData = await menu.json()
-
-// const order = await fetch(`http://localhost:5000/api/orders`, {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify({ ...customerData }),
-// })
-
-// const orderData = await order.json()
 
 orderTitle.innerHTML = menuData.title
 
 const { items } = menuData
 
-items.forEach((item) => {
-  return (orderItems.innerHTML += `
+items
+  .map((item) => {
+    return (orderItems.innerHTML += `
 
     <div class="row">
           <div class="col-md-6">
@@ -83,7 +73,8 @@ items.forEach((item) => {
         </div>
         <hr />
         `)
-})
+  })
+  .join('')
 
 document.body.innerHTML += tostTemplate
 
@@ -116,6 +107,8 @@ const addItemToCart = async (e) => {
 
   cart.push(cartItemsWithPriceData)
 
+  badge.count = quantity
+
   toastInstance.show({
     autohide: true,
   })
@@ -142,9 +135,6 @@ checkoutButton.addEventListener('click', async (e) => {
 
   //add order id to session storage
   sessionStorage.setItem('order', JSON.stringify(orderData))
-
-  //add the cart to session storage
-  sessionStorage.setItem('cart', JSON.stringify(cart))
 
   //add the customer to session storage
   sessionStorage.setItem('customer', JSON.stringify(customerData))

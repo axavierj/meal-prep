@@ -21,6 +21,7 @@
     ></script>
     <!-- vendor assets end -->
     <!-- components start -->
+    <script src="../js/components/navbar.js" type="module" defer></script>
     <script src="../js/components/loginForm.js" type="module" defer></script>
     <!-- components end -->
     <!-- custom styles start -->
@@ -35,6 +36,9 @@
         place-items: center center;
       }
     </style>
+    <nav-bar
+      links='[{"name":"Services","href":"/#services"},{"name":"About","href":"/#about"},{"name":"Contact","href":"/#contact"},{"name":"Team","href":"/#team"},{"name":"Menu","href":"/menu/"}]'
+    ></nav-bar>
     <main class="vh-100 bg-light center-g">
       <div class="d-flex mb-3">
         <section class="mx-auto display-2">login</section>

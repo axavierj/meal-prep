@@ -31,6 +31,9 @@ class LogInForm extends HTMLElement {
             </div>
 
             <button class="btn btn-secondary">log in</button>
+            <div class="mt-3">
+            <p>Don't have an account? <a href="/register/" class="btn btn-info">register</a></p>
+            </div>
           </form>
         </section>
       </div>`

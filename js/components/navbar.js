@@ -34,14 +34,17 @@ const template = `
     </div>
   </div>
 </nav>
+<div class="bg-info p-2"><a href="/login/" class="btn btn-primary shadow-sm">log-in</a> <button class="btn btn-warning shadow-sm mr-3" id="logoutBtn">log-out</button></div>
 `
 class Navbar extends HTMLElement {
   constructor() {
     super()
     this.innerHTML = template
+    this.logoutBtn = this.querySelector('#logoutBtn')
   }
   connectedCallback() {
     console.log('Navbar connected')
+    this.logoutBtn.addEventListener('click', this.logout)
   }
   static get observedAttributes() {
     return ['links']
@@ -56,6 +59,11 @@ class Navbar extends HTMLElement {
     if (oldValue !== newValue) {
       this.render(name)
     }
+  }
+
+  logout() {
+    sessionStorage.removeItem('user')
+    window.location.href = '/login/'
   }
   render(name) {
     if (name === 'links') {

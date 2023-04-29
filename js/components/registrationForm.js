@@ -125,6 +125,10 @@ class RegistrationForm extends HTMLElement {
         sessionStorage.setItem('user', JSON.stringify(data))
         window.location.href = '/login'
       }
+
+      if (response.status === 400) {
+        alert(data.message)
+      }
     })
   }
 
