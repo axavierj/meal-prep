@@ -1,7 +1,11 @@
 const template = `
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">My App</a>
+    <a class="navbar-brand" href="/"><img src=${
+      window.location.href !== '/'
+        ? '../css/assets/logo_3_50.png'
+        : './css/assets/logo_3_50.png'
+    } alt="logo"> L&R</a>
     <button
       class="navbar-toggler"
       type="button"

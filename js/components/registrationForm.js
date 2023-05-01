@@ -120,15 +120,14 @@ class RegistrationForm extends HTMLElement {
         body: JSON.stringify(body),
       })
       const data = await response.json()
-      if (response.status === 201) {
-        e.target.reset()
-        sessionStorage.setItem('user', JSON.stringify(data))
-        window.location.href = '/login'
-      }
-
       if (response.status === 400) {
         alert(data.message)
+        return
       }
+
+      e.target.reset()
+      sessionStorage.setItem('user', JSON.stringify(data))
+      window.location.href = '/login'
     })
   }
 

@@ -102,77 +102,79 @@ document.addEventListener('DOMContentLoaded', async () => {
 const order = await fetch(`http://localhost:5000/api/orders/${orderId}`)
 
 const orderData = await order.json()
-
-console.log(orderData)
-
-const generateCartHtml = (cart) => {
-  return cart
-    .map(
-      (item) =>
-        `<tr>
-    <td>${item.day}</td>
-    <td>${item.mealType}</td>
-    <td>${item.quantity}</td>
-    <td>$${((parseInt(item.quantity) * item.price) / 100).toFixed(2)}</td>
-    <td>
-    <button class="btn btn-danger btn-sm removeItem" data-line=${
-      item.uid
-    }>Remove</button>
+if (orderData) {
+  const generateCartHtml = (cart) => {
+    return cart
+      .map(
+        (item) =>
+          `<tr>
+      <td>${item.day}</td>
+      <td>${item.mealType}</td>
+      <td>${item.quantity}</td>
+      <td>$${((parseInt(item.quantity) * item.price) / 100).toFixed(2)}</td>
+      <td>
+      
     </td>
     </tr>`
-    )
-    .join('')
-}
-cartSummary.innerHTML = ''
+      )
+      .join('')
+  }
+  cartSummary.innerHTML = ''
 
-cartSummary.innerHTML = generateCartHtml(cart)
+  cartSummary.innerHTML = generateCartHtml(cart)
 
-const removeItemButtons = document.querySelectorAll('.removeItem')
+  const removeItemButtons = document.querySelectorAll('.removeItem')
 
-removeItemButtons.forEach((button) => {
-  button.addEventListener('click', async (e) => {
-    const line = e.target.dataset.line
-    //remove the item from the cart
-    cart = cart.filter((item) => item.uid !== line)
-    console.log(cart)
-    const response = await fetch(
-      `http://localhost:5000/api/orders/${orderId}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          cart,
-        }),
-      }
-    )
-    console.log(response)
+  // removeItemButtons.forEach((button) => {
+  //   button.addEventListener('click', async (e) => {
+  //     const line = e.target.dataset.line
+  //     //remove the item from the cart
+  //     cart = cart.filter((item) => item.uid !== line)
+  //     const { version } = localOrder
+  //     debugger
+  //     const response = await fetch(
+  //       `http://localhost:5000/api/orders/${orderId}`,
+  //       {
+  //         method: 'PUT',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           lineItemId: line,
+  //           version,
+  //         }),
+  //       }
+  //     )
 
-    const orderData = await response.json()
-    console.log(orderData)
-    cartSummary.innerHTML = generateCartHtml(cart)
+  //     const orderData = await response.json()
+  //     console.log(orderData)
+  //     cartSummary.innerHTML = generateCartHtml(cart)
+  //   })
+  // })
+  deliveryContainer.innerHTML = `<h4>Taxes:</h4><div class="mx-2">$${(
+    orderData.tax / 100
+  ).toFixed(2)}</div><hr />`
+
+  subTotalContainer.innerHTML = `<h4>Sub Total:</h4><div class="mx-2">$${(
+    (orderData.total - orderData.tax) /
+    100
+  ).toFixed(2)}</div><hr />`
+
+  totalContainer.innerHTML = `<h4>Total:</h4><div class="mx-2">$${(
+    orderData.total / 100
+  ).toFixed(2)}</div><hr />`
+
+  checkoutButton.addEventListener('click', () => {
+    //open the payment window dialog
+    paymentWindow.showModal()
   })
-})
-deliveryContainer.innerHTML = `<h4>Taxes:</h4><div class="mx-2">$${(
-  orderData.tax / 100
-).toFixed(2)}</div><hr />`
 
-subTotalContainer.innerHTML = `<h4>Sub Total:</h4><div class="mx-2">$${(
-  (orderData.total - orderData.tax) /
-  100
-).toFixed(2)}</div><hr />`
+  closePayment.addEventListener('click', () => {
+    //close the payment window dialog
+    paymentWindow.close()
+  })
+}
 
-totalContainer.innerHTML = `<h4>Total:</h4><div class="mx-2">$${(
-  orderData.total / 100
-).toFixed(2)}</div><hr />`
-
-checkoutButton.addEventListener('click', () => {
-  //open the payment window dialog
-  paymentWindow.showModal()
-})
-
-closePayment.addEventListener('click', () => {
-  //close the payment window dialog
-  paymentWindow.close()
-})
+if (!cart) {
+  checkoutButton.disabled = true
+}

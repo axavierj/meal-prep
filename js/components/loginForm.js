@@ -31,6 +31,21 @@ class LogInForm extends HTMLElement {
             </div>
 
             <button class="btn btn-secondary">log in</button>
+
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" value="" id="terms">
+              <label class="form-check-label" for="terms">
+              accept our <a href="/terms/">terms and conditions</a>
+              </label>
+              
+            </div>
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" value="" id="privacy">
+              <label class="form-check-label" for="privacy">
+              accept our <a href="/privacy/">privacy statement</a>
+              </label>
+              
+            </div>
             <div class="mt-3">
             <p>Don't have an account? <a href="/register/" class="btn btn-info">register</a></p>
             </div>
@@ -39,28 +54,31 @@ class LogInForm extends HTMLElement {
       </div>`
   }
   connectedCallback() {
-    //check for a user in session storage
     const user = JSON.parse(sessionStorage.getItem('user'))
     if (user) {
-      //if user exists, redirect to another page
       window.location.href = '/order/'
     }
-    //get the form element
     const form = this.querySelector('#loginForm')
-    //listen for the submit event
     form.addEventListener('submit', async (e) => {
       e.preventDefault()
-      //get the values from the form
       const email = form.querySelector('#email').value
       const password = form.querySelector('#password').value
-      //call the login method
+      const terms = form.querySelector('#terms').checked
+      const privacy = form.querySelector('#privacy').checked
+      if (!terms) {
+        alert('You must accept our terms and conditions and privacy statement')
+        return
+      }
+
+      if (!privacy) {
+        alert('You must accept our terms and conditions and privacy statement')
+        return
+      }
+
       const response = await this.logIn(email, password)
-      //check if the response is valid
       if (response) {
-        //if valid, store the user in session storage
         sessionStorage.setItem('user', JSON.stringify(response))
         e.target.reset()
-        //redirect to another page
         window.location.href = '/order/'
       }
     })
@@ -75,9 +93,7 @@ class LogInForm extends HTMLElement {
       },
       body: JSON.stringify({ email, password }),
     })
-    //check the response status
     if (response.status !== 200) {
-      //if not 200, display an error message
       const message = await response.text()
       alert(message)
       return

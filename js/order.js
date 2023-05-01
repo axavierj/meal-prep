@@ -1,7 +1,8 @@
 const orderItems = document.querySelector('#orderItems')
 const orderTitle = document.querySelector('#oderTitle')
 const cartOutPut = document.querySelector('#cartOutPut')
-const tostTemplate = `  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+const tostTemplate = `  <div class="toast-container position-fixed bottom-50 end-0 p-3">
 <div id="Toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="toast-body">
     Item added to cart
@@ -21,13 +22,13 @@ const customerData = await customer.json()
 
 const menuData = await menu.json()
 
-orderTitle.innerHTML = menuData.title
+if (menuData) {
+  orderTitle.innerHTML = menuData.title
+  const { items } = menuData
 
-const { items } = menuData
-
-items
-  .map((item) => {
-    return (orderItems.innerHTML += `
+  items
+    .map((item) => {
+      return (orderItems.innerHTML += `
 
     <div class="row">
           <div class="col-md-6">
@@ -66,79 +67,90 @@ items
                   </button>
                   </form>
                   </div>
-                  <section class="col-md-6">
+                  <section class="col-md-6" >
                   <h3>${item.day}</h3>
             <p>${item.description}</p>
+            <p>Current order: <span id="${item.day}-info"></span></p>
           </section>
         </div>
         <hr />
         `)
-  })
-  .join('')
+    })
+    .join('')
 
-document.body.innerHTML += tostTemplate
+  document.body.innerHTML += tostTemplate
 
-const Toast = document.querySelector('#Toast')
-const toastInstance = bootstrap.Toast.getOrCreateInstance(Toast)
+  const Toast = document.querySelector('#Toast')
+  const toastInstance = bootstrap.Toast.getOrCreateInstance(Toast)
 
-const addItemToCart = async (e) => {
-  e.preventDefault()
-  const quantity = e.target.querySelector('input').value
-  const mealType = e.target.querySelector('select').value
-  const day = e.target.querySelector('select').id.split('-')[0].toLowerCase()
-  const item = {
-    quantity: quantity,
-    mealType,
-    day,
+  const addItemToCart = async (e) => {
+    e.preventDefault()
+    const quantity = e.target.querySelector('input').value
+    const mealType = e.target.querySelector('select').value
+    const day = e.target.querySelector('select').id.split('-')[0].toLowerCase()
+    const item = {
+      quantity: quantity,
+      mealType,
+      day,
+    }
+
+    const cartItemsWithPrice = await fetch(
+      `http://localhost:5000/api/orders/addprices`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ item }),
+      }
+    )
+
+    const details = `${day}-info`
+    const info = document.querySelector(`#${details}`)
+    console.log(info)
+    info.innerHTML = `${quantity} ${mealType} meals`
+
+    const cartItemsWithPriceData = await cartItemsWithPrice.json()
+
+    cart.push(cartItemsWithPriceData)
+    console.log(cart)
+    badge.count = quantity
+
+    toastInstance.show({
+      autohide: true,
+    })
+    e.target.reset()
   }
 
-  const cartItemsWithPrice = await fetch(
-    `http://localhost:5000/api/orders/addprices`,
-    {
+  const orderForm = document.querySelectorAll('form')
+  orderForm.forEach((form) => {
+    form.addEventListener('submit', addItemToCart)
+  })
+
+  const checkoutButton = document.querySelector('#Checkout')
+
+  checkoutButton.addEventListener('click', async (e) => {
+    const order = await fetch(`http://localhost:5000/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ item }),
-    }
-  )
+      body: JSON.stringify({ ...customerData, cart }),
+    })
 
-  const cartItemsWithPriceData = await cartItemsWithPrice.json()
+    const orderData = await order.json()
 
-  cart.push(cartItemsWithPriceData)
+    //add order id to session storage
+    sessionStorage.setItem('order', JSON.stringify(orderData))
 
-  badge.count = quantity
+    //add the customer to session storage
+    sessionStorage.setItem('customer', JSON.stringify(customerData))
 
-  toastInstance.show({
-    autohide: true,
+    //redirect to checkout page
+    window.location.href = '/cart/'
   })
-  e.target.reset()
 }
 
-const orderForm = document.querySelectorAll('form')
-orderForm.forEach((form) => {
-  form.addEventListener('submit', addItemToCart)
-})
-
-const checkoutButton = document.querySelector('#Checkout')
-
-checkoutButton.addEventListener('click', async (e) => {
-  const order = await fetch(`http://localhost:5000/api/orders`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ ...customerData, cart }),
-  })
-
-  const orderData = await order.json()
-
-  //add order id to session storage
-  sessionStorage.setItem('order', JSON.stringify(orderData))
-
-  //add the customer to session storage
-  sessionStorage.setItem('customer', JSON.stringify(customerData))
-
-  //redirect to checkout page
-  window.location.href = '/cart/'
-})
+if (!menuData) {
+  orderTitle.innerHTML = 'No Active Menu'
+}

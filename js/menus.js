@@ -1,5 +1,6 @@
 const menuTitle = document.querySelector('#menuTitle')
 const menuList = document.querySelector('#menuList')
+const orderBtn = document.querySelector('#orderBtn')
 
 const getActiveMenu = async () => {
   const url = 'http://localhost:5000/api/menus?active=true'
@@ -10,16 +11,17 @@ const getActiveMenu = async () => {
 
 const activeMenu = await getActiveMenu()
 
-menuTitle.innerHTML = activeMenu.title
-menuList.innerHTML = ''
-menuList.innerHTML = activeMenu.items
-  .map(
-    (item) =>
-      `<li class="list-group-item">
+if (activeMenu) {
+  menuTitle.innerHTML = activeMenu.title
+  menuList.innerHTML = ''
+  menuList.innerHTML = activeMenu.items
+    .map(
+      (item) =>
+        `<li class="list-group-item">
   <div class="row align-items-center">
     <div class="col-md-3">
       <img
-        src="https://via.placeholder.com/150x150"
+        src=${item?.image ? item.image : 'https://via.placeholder.com/150x150'}
         alt="Dish Image"
         class="img-fluid"
       />
@@ -30,5 +32,12 @@ menuList.innerHTML = activeMenu.items
     </div>
   </div>
 </li>`
-  )
-  .join('')
+    )
+    .join('')
+}
+
+if (!activeMenu) {
+  menuTitle.innerHTML = 'No Active Menu'
+  menuList.innerHTML = ''
+  orderBtn.innerHTML = ''
+}
