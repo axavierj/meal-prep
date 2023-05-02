@@ -6,7 +6,7 @@ const footerTemplate = `
         <h4>Social Media</h4>
         <ul class="list-unstyled">
           <li>
-            <a href="#"><i class="bi bi-facebook"></i> Facebook</a>
+            <a href="https://www.facebook.com/LittleRibbon87" target="_blank"><i class="bi bi-facebook"></i> Facebook</a>
           </li>
           <li>
             <a href="#"><i class="bi bi-twitter"></i> Twitter</a>
@@ -23,7 +23,7 @@ const footerTemplate = `
       </div>
       <div class="col-md-4">
         <h4>Contact Us</h4>
-        <p>Email: info@example.com</p>
+        <p>Email: info@littleribboncakes.com</p>
         <p>Phone: 555-123-4567</p>
       </div>
     </div>
