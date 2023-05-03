@@ -17,6 +17,7 @@ let calculatedOrder
 const appId = 'sandbox-sq0idb-UmzeFtMVc6t1pFMVHL0emw'
 const locationId = 'LXSRF47KWQP48'
 
+// square payment start
 const initializeCard = async (payments) => {
   const card = await payments.card()
   await card.attach('#card-container')
@@ -102,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await handlePaymentMethodSubmission(event, card)
   })
 })
-
+//square payment end
 if (cart) {
   const generateCartHtml = (cart) => {
     return cart
