@@ -1,19 +1,17 @@
+import {
+  renderMenuItems,
+  getActiveMenu,
+  getCustomerData,
+} from './services/order.service.js'
+
 const orderItems = document.querySelector('#orderItems')
 const orderTitle = document.querySelector('#oderTitle')
-const cartOutPut = document.querySelector('#cartOutPut')
-
 const badge = document.querySelector('badge-component')
 
 let cart = []
-const user = JSON.parse(sessionStorage.getItem('user'))
+const menu = await getActiveMenu()
 
-const menu = await fetch('http://localhost:5000/api/menus?active=true')
-
-const customer = await fetch(`http://localhost:5000/api/customer/${user.sqid}`)
-
-const customerData = await customer.json()
-
-const menuData = await menu.json()
+const customer = await getCustomerData()
 
 sessionStorage.removeItem('order')
 const sumQuantities = (items) => {
@@ -34,61 +32,11 @@ const getTotalQuantityByDay = (items, day) => {
   return total
 }
 
-if (menuData) {
-  orderTitle.innerHTML = menuData.title
-  const { items } = menuData
-
-  items
-    .map((item) => {
-      return (orderItems.innerHTML += `
-    
-    <div class="row animate__animated animate__fadeIn">
-    <div class="col-md-6">
-    <form>
-    <div class="form-group">
-    <label for="${item.day}-quantity">Quantity</label>
-    <input
-    type="number"
-    class="form-control"
-    id="${item.day}-quantity"
-    name="${item.day}-quantity"
-    min="0"
-    value="1"
-    />
-    </div>
-    <div class="form-group mb-3">
-    <label for="${item.day}-meal-type">Meal Type</label>
-    <select
-    class="form-control"
-    id="${item.day}-meal-type"
-    name="${item.day}-meal-type"
-    >
-    <option value="regular">Regular</option>
-    <option value="keto">Keto</option>
-    <option value="paleo">Paleo</option>
-    <option value="lowcarb">Low Carb</option>
-    <option value="hiprotein">High Protein</option>
-    <option value="lowprotein">Low Protein</option>
-    <option value="vegetarian">Vegetarian</option>
-    <option value="vegan">Vegan</option>
-    <option value="family">Family</option>
-    </select>
-    </div>
-    <button class="btn btn-secondary">
-    <i class="bi bi-cart-plus"></i>
-    </button>
-    </form>
-    </div>
-    <section class="col-md-6" >
-    <h3>${item.day}</h3>
-    <p>${item.description}</p>
-            <p>Current order: <strong id="${item.day}-info"></strong></p>
-          </section>
-        </div>
-        <hr />
-        `)
-    })
-    .join('')
+if (menu) {
+  orderTitle.innerHTML = menu.title
+  const { items } = menu
+  const menuTemplate = renderMenuItems(items)
+  orderItems.innerHTML = menuTemplate
 
   const addedAlert = document.querySelector('#addedAlert')
   const addedAlertClose = document.querySelector('#addedAlertClose')
@@ -137,7 +85,7 @@ if (menuData) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...customerData, cart }),
+      body: JSON.stringify({ ...customer, cart }),
     })
 
     const orderData = await order.json()
@@ -146,13 +94,13 @@ if (menuData) {
     sessionStorage.setItem('order', JSON.stringify(orderData))
 
     //add the customer to session storage
-    sessionStorage.setItem('customer', JSON.stringify(customerData))
+    sessionStorage.setItem('customer', JSON.stringify(customer))
 
     //redirect to checkout page
     window.location.href = '/cart/'
   })
 }
 
-if (!menuData) {
+if (!menu) {
   orderTitle.innerHTML = 'No Active Menu'
 }
