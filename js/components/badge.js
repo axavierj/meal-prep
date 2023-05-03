@@ -22,9 +22,9 @@ class Badge extends HTMLElement {
       if (oldValue === null) {
         oldValue = 0
       }
-      const updatedCount = parseInt(newValue) + parseInt(oldValue)
+
       const badge = document.getElementById('badge')
-      badge.innerHTML = updatedCount
+      badge.innerHTML = this.count
     }
   }
 }

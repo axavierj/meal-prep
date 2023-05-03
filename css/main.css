@@ -2,6 +2,17 @@ html {
   scroll-behavior: smooth;
 }
 
+dialog {
+  border: none;
+  padding: 0;
+}
+
+#addedAlertClose {
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+}
+
 #home {
   background-image: url('./assets/hero_480.png');
   background-size: cover;
@@ -24,6 +35,22 @@ html {
 
 #payment {
   border: none;
+}
+
+.service {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.5s ease-out;
+}
+
+.slide-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-out {
+  opacity: 0;
+  transform: translateY(50px);
 }
 
 @media only screen and (min-width: 768px) {
