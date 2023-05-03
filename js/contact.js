@@ -1,4 +1,10 @@
 const contactForm = document.querySelector('#contactForm')
+const contactAlert = document.querySelector('#contactAlert')
+const closeContactAlert = document.querySelector('#closeContactAlert')
+
+closeContactAlert.addEventListener('click', () => {
+  contactAlert.close()
+})
 
 contactForm.addEventListener('submit', async (e) => {
   e.preventDefault()
@@ -21,6 +27,7 @@ contactForm.addEventListener('submit', async (e) => {
   })
 
   const contactData = await contactRes.json()
+  contactAlert.showModal()
 
   const messageRes = await fetch('http://localhost:5000/api/contact/response', {
     method: 'POST',
@@ -31,7 +38,6 @@ contactForm.addEventListener('submit', async (e) => {
   })
 
   const messageData = await messageRes.json()
-  console.log(messageData, contactData)
 
   e.target.reset()
 })

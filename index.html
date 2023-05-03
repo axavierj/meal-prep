@@ -14,6 +14,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <script
       src="./vendor/bootstrap-5.2.3/js/bootstrap.min.js"
       type="module"
@@ -36,6 +40,25 @@
     <title>Document</title>
   </head>
   <body>
+    <dialog id="contactAlert" class="animate__animated animate__bounceIn">
+      <header
+        class="d-flex justify-content-between align-items-center bg-primary p-3"
+      >
+        <h4 class="text-white">Message Sent</h4>
+      </header>
+      <div class="p-3">
+        <p class="text-center">
+          Thank you for contacting us. We will get back to you as soon as
+          possible.
+        </p>
+        <small class="text-mute"
+          >*messages might end up in your spam inbox</small
+        >
+        <div class="d-grid gap-2 mt-3">
+          <button id="closeContactAlert" class="btn btn-primary">close</button>
+        </div>
+      </div>
+    </dialog>
     <a
       id="scroll-to-top-btn"
       class="btn btn-primary btn-lg btn-block"
@@ -55,7 +78,9 @@
               <p class="lead">
                 Delicious, healthy meals delivered to your door
               </p>
-              <a href="/order/" class="btn btn-primary btn-lg">Order Now</a>
+              <a href="/order/" class="btn btn-primary btn-lg"
+                >Order Now <i class="bi bi-card-list"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -160,7 +185,9 @@
                 efficitur. Pellentesque habitant morbi tristique senectus et
                 netus et malesuada fames ac turpis egestas.
               </p>
-              <a href="#contact" class="btn btn-primary">Contact Us</a>
+              <a href="#contact" class="btn btn-primary"
+                >Contact Us <i class="bi bi-envelope-at"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -265,6 +292,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mt-3">
                   Submit
+                  <i class="bi bi-send-fill"></i>
                 </button>
               </form>
             </div>
@@ -293,7 +321,6 @@
                 <a href="#" class="instagram"
                   ><i class="bi bi-instagram"></i
                 ></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
               </div>
             </div>
           </div>
