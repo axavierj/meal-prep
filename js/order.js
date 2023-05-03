@@ -2,13 +2,6 @@ const orderItems = document.querySelector('#orderItems')
 const orderTitle = document.querySelector('#oderTitle')
 const cartOutPut = document.querySelector('#cartOutPut')
 
-const tostTemplate = `  <div class="toast-container position-fixed bottom-50 end-0 p-3">
-<div id="Toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-body">
-    Item added to cart
-    </div>
-</div>
-</div>`
 const badge = document.querySelector('badge-component')
 
 let cart = []
@@ -22,6 +15,25 @@ const customerData = await customer.json()
 
 const menuData = await menu.json()
 
+sessionStorage.removeItem('order')
+const sumQuantities = (items) => {
+  let sum = 0
+  for (let i = 0; i < items.length; i++) {
+    sum += parseInt(items[i].quantity)
+  }
+  return sum
+}
+
+const getTotalQuantityByDay = (items, day) => {
+  let total = 0
+  for (const item of items) {
+    if (item.day === day) {
+      total += parseInt(item.quantity)
+    }
+  }
+  return total
+}
+
 if (menuData) {
   orderTitle.innerHTML = menuData.title
   const { items } = menuData
@@ -29,48 +41,48 @@ if (menuData) {
   items
     .map((item) => {
       return (orderItems.innerHTML += `
-
-    <div class="row">
-          <div class="col-md-6">
-          <form>
-          <div class="form-group">
-            <label for="${item.day}-quantity">Quantity</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="${item.day}-quantity"
-                  name="${item.day}-quantity"
-                  min="0"
-                  value="1"
-                  />
-                  </div>
-                  <div class="form-group mb-3">
-                  <label for="${item.day}-meal-type">Meal Type</label>
-                  <select
-                  class="form-control"
-                  id="${item.day}-meal-type"
-                  name="${item.day}-meal-type"
-                  >
-                  <option value="regular">Regular</option>
-                  <option value="keto">Keto</option>
-                  <option value="paleo">Paleo</option>
-                  <option value="lowcarb">Low Carb</option>
-                  <option value="hiprotein">High Protein</option>
-                  <option value="lowprotein">Low Protein</option>
-                  <option value="vegetarian">Vegetarian</option>
-                  <option value="vegan">Vegan</option>
-                  <option value="family">Family</option>
-                  </select>
-                  </div>
-                  <button class="btn btn-secondary">
-                  <i class="bi bi-cart-plus"></i>
-                  </button>
-                  </form>
-                  </div>
-                  <section class="col-md-6" >
-                  <h3>${item.day}</h3>
-            <p>${item.description}</p>
-            <p>Current order: <span id="${item.day}-info"></span></p>
+    
+    <div class="row animate__animated animate__fadeIn">
+    <div class="col-md-6">
+    <form>
+    <div class="form-group">
+    <label for="${item.day}-quantity">Quantity</label>
+    <input
+    type="number"
+    class="form-control"
+    id="${item.day}-quantity"
+    name="${item.day}-quantity"
+    min="0"
+    value="1"
+    />
+    </div>
+    <div class="form-group mb-3">
+    <label for="${item.day}-meal-type">Meal Type</label>
+    <select
+    class="form-control"
+    id="${item.day}-meal-type"
+    name="${item.day}-meal-type"
+    >
+    <option value="regular">Regular</option>
+    <option value="keto">Keto</option>
+    <option value="paleo">Paleo</option>
+    <option value="lowcarb">Low Carb</option>
+    <option value="hiprotein">High Protein</option>
+    <option value="lowprotein">Low Protein</option>
+    <option value="vegetarian">Vegetarian</option>
+    <option value="vegan">Vegan</option>
+    <option value="family">Family</option>
+    </select>
+    </div>
+    <button class="btn btn-secondary">
+    <i class="bi bi-cart-plus"></i>
+    </button>
+    </form>
+    </div>
+    <section class="col-md-6" >
+    <h3>${item.day}</h3>
+    <p>${item.description}</p>
+            <p>Current order: <strong id="${item.day}-info"></strong></p>
           </section>
         </div>
         <hr />
@@ -78,10 +90,14 @@ if (menuData) {
     })
     .join('')
 
-  document.body.innerHTML += tostTemplate
+  const addedAlert = document.querySelector('#addedAlert')
+  const addedAlertClose = document.querySelector('#addedAlertClose')
+  const addedAlertDetails = document.querySelector('#addedAlertDetails')
 
-  const Toast = document.querySelector('#Toast')
-  const toastInstance = bootstrap.Toast.getOrCreateInstance(Toast)
+  addedAlertClose.addEventListener('click', () => {
+    addedAlert.close()
+    addedAlertDetails.innerHTML = ''
+  })
 
   const addItemToCart = async (e) => {
     e.preventDefault()
@@ -94,31 +110,17 @@ if (menuData) {
       day,
     }
 
-    const cartItemsWithPrice = await fetch(
-      `http://localhost:5000/api/orders/addprices`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ item }),
-      }
-    )
-
     const details = `${day}-info`
     const info = document.querySelector(`#${details}`)
-    console.log(info)
-    info.innerHTML = `${quantity} ${mealType} meals`
 
-    const cartItemsWithPriceData = await cartItemsWithPrice.json()
+    cart.push(item)
+    badge.count = sumQuantities(cart)
+    info.innerHTML = `${getTotalQuantityByDay(cart, day)} meals`
 
-    cart.push(cartItemsWithPriceData)
-    console.log(cart)
-    badge.count = quantity
+    addedAlertDetails.innerHTML = `added ${quantity} ${mealType} ${day} meals to cart`
+    addedAlert.classList.add('animate__animated', 'animate__bounceIn')
+    addedAlert.showModal()
 
-    toastInstance.show({
-      autohide: true,
-    })
     e.target.reset()
   }
 
@@ -130,7 +132,7 @@ if (menuData) {
   const checkoutButton = document.querySelector('#Checkout')
 
   checkoutButton.addEventListener('click', async (e) => {
-    const order = await fetch(`http://localhost:5000/api/orders`, {
+    const order = await fetch(`http://localhost:5000/api/orders/addprices`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

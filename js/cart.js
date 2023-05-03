@@ -3,13 +3,16 @@ const totalContainer = document.querySelector('#Total')
 const subTotalContainer = document.querySelector('#subTotal')
 const cartSummary = document.querySelector('#cartSummary')
 const deliveryContainer = document.querySelector('#Delivery')
+const taxesContainer = document.querySelector('#Taxes')
 const paymentWindow = document.querySelector('#payment')
 const closePayment = document.querySelector('#closePayment')
 const cardButton = document.getElementById('card-button')
-const orderId = JSON.parse(sessionStorage.getItem('order')).id
 let cart = JSON.parse(sessionStorage.getItem('order')).cart
 const user = JSON.parse(sessionStorage.getItem('user'))
 const localOrder = JSON.parse(sessionStorage.getItem('order'))
+const customer = JSON.parse(sessionStorage.getItem('customer'))
+
+let calculatedOrder
 
 const appId = 'sandbox-sq0idb-UmzeFtMVc6t1pFMVHL0emw'
 const locationId = 'LXSRF47KWQP48'
@@ -24,9 +27,9 @@ const createPayment = async (token) => {
   const body = JSON.stringify({
     locationId,
     sourceId: token,
-    orderId,
+    orderId: calculatedOrder.id,
     customerId: user.sqid,
-    amount: localOrder.amount,
+    amount: calculatedOrder.amount,
   })
   const paymentResponse = await fetch('http://localhost:5000/api/payment', {
     method: 'POST',
@@ -41,6 +44,7 @@ const createPayment = async (token) => {
   const errorBody = await paymentResponse.text()
   throw new Error(errorBody)
   //redirect to the error page
+  window.location.href = '/error'
 }
 
 const tokenize = async (paymentMethod) => {
@@ -83,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const paymentResults = await createPayment(token)
       displayPaymentResults('SUCCESS')
       paymentWindow.close()
-      //redirect to the order success page
+      // redirect to the order success page
       window.location.href = '/success'
 
       console.debug('Payment Success', paymentResults)
@@ -99,21 +103,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   })
 })
 
-const order = await fetch(`http://localhost:5000/api/orders/${orderId}`)
-
-const orderData = await order.json()
-if (orderData) {
+if (cart) {
   const generateCartHtml = (cart) => {
     return cart
       .map(
         (item) =>
           `<tr>
-      <td>${item.day}</td>
-      <td>${item.mealType}</td>
+      <td>${item.name}</td>
+      <td>${item.note}</td>
       <td>${item.quantity}</td>
-      <td>$${((parseInt(item.quantity) * item.price) / 100).toFixed(2)}</td>
+      <td>$${(
+        (parseInt(item.quantity) * item.basePriceMoney.amount) /
+        100
+      ).toFixed(2)}</td>
       <td>
-      
+      <button class="btn btn-danger removeItem" data-line="${item.uid}" id=${
+            item.uid
+          }>Remove</button>
     </td>
     </tr>`
       )
@@ -123,50 +129,69 @@ if (orderData) {
 
   cartSummary.innerHTML = generateCartHtml(cart)
 
-  const removeItemButtons = document.querySelectorAll('.removeItem')
+  cartSummary.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('removeItem')) {
+      let editCart = [...cart]
+      editCart = editCart.filter((item) => item.uid !== event.target.id)
+      cart = [...editCart]
 
-  // removeItemButtons.forEach((button) => {
-  //   button.addEventListener('click', async (e) => {
-  //     const line = e.target.dataset.line
-  //     //remove the item from the cart
-  //     cart = cart.filter((item) => item.uid !== line)
-  //     const { version } = localOrder
-  //     debugger
-  //     const response = await fetch(
-  //       `http://localhost:5000/api/orders/${orderId}`,
-  //       {
-  //         method: 'PUT',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           lineItemId: line,
-  //           version,
-  //         }),
-  //       }
-  //     )
+      const transmitionCart = cart.map((item) => {
+        return {
+          day: item.name,
+          quantity: item.quantity,
+          mealType: item.note,
+        }
+      })
+      console.log(transmitionCart)
+      const order = await fetch(`http://localhost:5000/api/orders/addprices`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cart: transmitionCart, ...customer }),
+      })
 
-  //     const orderData = await response.json()
-  //     console.log(orderData)
-  //     cartSummary.innerHTML = generateCartHtml(cart)
-  //   })
-  // })
-  deliveryContainer.innerHTML = `<h4>Taxes:</h4><div class="mx-2">$${(
-    orderData.tax / 100
+      const orderData = await order.json()
+      sessionStorage.setItem('order', JSON.stringify(orderData))
+      //refresh the page
+      window.location.href = '/cart'
+    }
+  })
+
+  taxesContainer.innerHTML = `<h4>Taxes:</h4><div class="mx-2">$${(
+    localOrder.taxes / 100
   ).toFixed(2)}</div><hr />`
 
+  deliveryContainer.innerHTML = `<h4>Delivery:</h4><div class="mx-2">$${
+    localOrder.amount > 4800 ? 0 : (localOrder.serviceCharge / 100).toFixed(2)
+  }</div><hr />`
+
   subTotalContainer.innerHTML = `<h4>Sub Total:</h4><div class="mx-2">$${(
-    (orderData.total - orderData.tax) /
+    (localOrder.amount - localOrder.taxes - localOrder.serviceCharge) /
     100
   ).toFixed(2)}</div><hr />`
 
-  totalContainer.innerHTML = `<h4>Total:</h4><div class="mx-2">$${(
-    orderData.total / 100
-  ).toFixed(2)}</div><hr />`
+  totalContainer.innerHTML = `<h4>Total:</h4><div class="mx-2">$${
+    localOrder.amount > 4800
+      ? ((localOrder.amount - localOrder.serviceCharge) / 100).toFixed(2)
+      : (localOrder.amount / 100).toFixed(2)
+  }</div><hr />`
 
   checkoutButton.addEventListener('click', () => {
     //open the payment window dialog
-    paymentWindow.showModal()
+    fetch(`http://localhost:5000/api/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ localOrder, ...customer }),
+    }).then((res) => {
+      res.json().then((data) => {
+        calculatedOrder = data
+        sessionStorage.setItem('order', JSON.stringify(data))
+        paymentWindow.showModal()
+      })
+    })
   })
 
   closePayment.addEventListener('click', () => {

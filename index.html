@@ -14,6 +14,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
     <script
       src="./vendor/bootstrap-5.2.3/js/bootstrap.min.js"
       type="module"
@@ -31,10 +35,30 @@
     <script src="./js/setup.js" type="module" defer></script>
     <script src="./js/main.js" type="module" defer></script>
     <script src="./js/contact.js" type="module" defer></script>
+    <script src="./js/index.js" type="module" defer></script>
     <!-- custom scripts end -->
     <title>Document</title>
   </head>
   <body>
+    <dialog id="contactAlert" class="animate__animated animate__bounceIn">
+      <header
+        class="d-flex justify-content-between align-items-center bg-primary p-3"
+      >
+        <h4 class="text-white">Message Sent</h4>
+      </header>
+      <div class="p-3">
+        <p class="text-center">
+          Thank you for contacting us. We will get back to you as soon as
+          possible.
+        </p>
+        <small class="text-mute"
+          >*messages might end up in your spam inbox</small
+        >
+        <div class="d-grid gap-2 mt-3">
+          <button id="closeContactAlert" class="btn btn-primary">close</button>
+        </div>
+      </div>
+    </dialog>
     <a
       id="scroll-to-top-btn"
       class="btn btn-primary btn-lg btn-block"
@@ -54,7 +78,9 @@
               <p class="lead">
                 Delicious, healthy meals delivered to your door
               </p>
-              <a href="/order/" class="btn btn-primary btn-lg">Order Now</a>
+              <a href="/order/" class="btn btn-primary btn-lg"
+                >Order Now <i class="bi bi-card-list"></i
+              ></a>
             </div>
           </div>
         </div>
@@ -69,7 +95,7 @@
           </div>
           <div class="row">
             <div class="col-md-4">
-              <div class="card">
+              <div class="card service">
                 <img
                   class="card-img-top"
                   src="./css/assets/catering.png"
@@ -86,7 +112,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="card">
+              <div class="card service">
                 <img
                   class="card-img-top"
                   src="./css/assets/mealprep.png"
@@ -105,7 +131,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="card">
+              <div class="card service">
                 <img
                   class="card-img-top"
                   src="./css/assets/privatechef.png"
@@ -159,13 +185,15 @@
                 efficitur. Pellentesque habitant morbi tristique senectus et
                 netus et malesuada fames ac turpis egestas.
               </p>
-              <a href="#contact" class="btn btn-primary">Contact Us</a>
+              <a href="#contact" class="btn btn-primary"
+                >Contact Us <i class="bi bi-envelope-at"></i
+              ></a>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="team-section text-center my-5 vh-100" id="team">
+      <!-- <section class="team-section text-center my-5 vh-100" id="team">
         <div class="container">
           <h2 class="mb-5">Our Team</h2>
           <div class="row">
@@ -222,7 +250,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <section class="container-fluid bg-light vh-100" id="contact">
         <div class="container">
@@ -264,6 +292,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block mt-3">
                   Submit
+                  <i class="bi bi-send-fill"></i>
                 </button>
               </form>
             </div>
@@ -292,7 +321,6 @@
                 <a href="#" class="instagram"
                   ><i class="bi bi-instagram"></i
                 ></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
               </div>
             </div>
           </div>

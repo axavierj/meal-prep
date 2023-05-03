@@ -2,6 +2,18 @@ html {
   scroll-behavior: smooth;
 }
 
+dialog {
+  border: none;
+  padding: 0;
+}
+
+#addedAlertClose,
+#closePayment {
+  background-color: transparent;
+  border: none;
+  margin-left: auto;
+}
+
 #home {
   background-image: url('./assets/hero_480.png');
   background-size: cover;
