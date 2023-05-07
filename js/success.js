@@ -1,5 +1,6 @@
 const clearSession = () => {
   sessionStorage.removeItem('order')
+  sessionStorage.removeItem('customer')
 }
 
 //get the order from the session storage

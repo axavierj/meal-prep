@@ -18,8 +18,8 @@ const footerTemplate = `
       </div>
       <div class="col-md-4">
         <h4>Address</h4>
-        <p>123 Main St</p>
-        <p>Anytown, USA 12345</p>
+        <p>1025 E Hallandale Beach Blvd Ste 15 - 1058</p>
+        <p>Hallandale Beach, FL 33009-4478</p>
       </div>
       <div class="col-md-4">
         <h4>Contact Us</h4>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- vendor assets start -->
+    <link
+      rel="stylesheet"
+      href="../vendor/bootstrap-5.2.3/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../vendor/bootswatch/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
+    />
+    <script
+      src="../vendor/bootstrap-5.2.3/js/bootstrap.min.js"
+      type="module"
+      defer
+    ></script>
+    <!-- vendor assets end -->
+    <!-- components start -->
+    <script src="../js/components/brand.js" type="module"></script>
+    <script src="../js/components/navbar.js" type="module" defer></script>
+    <script src="../js/components/footer.js" type="module" defer></script>
+    <!-- components end -->
+    <!-- custom styles start -->
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- custom styles end -->
+    <!-- custom script start -->
+    <script src="../js/setup.js" type="module" defer></script>
+    <!-- custom script end -->
+    <title>Document</title>
+  </head>
+  <body>
+    <nav-bar
+      links='[{"name":"Services","href":"/#services"},{"name":"About","href":"/#about"},{"name":"Contact","href":"/#contact"},{"name":"List","href":"/#emailSignup"},{"name":"Cake","href":"/cake/"},{"name":"Menu","href":"/menu/"}]'
+    ></nav-bar>
+    <main class="hv-100">
+      <section class="gallery">
+        <div
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                src="../css/assets/slide_1.png"
+                class="d-block w-100"
+                alt="Cake 1"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="../css/assets/slide_2.png"
+                class="d-block w-100"
+                alt="Cake 2"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                src="../css/assets/slide_3.png"
+                class="d-block w-100"
+                alt="Cake 3"
+              />
+            </div>
+          </div>
+
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </section>
+      <section class="py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <h2>About the bakery</h2>
+              <p>
+                We are a team of professional bakers who are passionate about
+                creating beautiful, delicious cakes for all occasions. Our cakes
+                are made from high-quality ingredients and are baked fresh to
+                order. We take great care in every step of the process, from
+                designing your cake to delivering it to your doorstep.
+              </p>
+              <p>
+                Whether you're planning a birthday party, wedding, or any other
+                special event, we can create a custom cake that will be the
+                centerpiece of your celebration. We offer a wide range of
+                flavors and styles to choose from, and we can work with you to
+                create a cake that matches your theme and vision.
+              </p>
+            </div>
+            <div class="col-md-6">
+              <img
+                src="../css/assets/cake_pic_1_about.png"
+                alt="About Us Image"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <hr />
+      <section id="cakeInquiry" class="p-3 container">
+        <h2>Submit an Inquiry</h2>
+        <p>
+          If you would like to submit an inquiry about our cake service, please
+          click the link below:
+        </p>
+        <a href="/cake/inquiry/" class="btn btn-secondary">Submit an Inquiry</a>
+      </section>
+    </main>
+    <site-footer></site-footer>
+  </body>
+</html>

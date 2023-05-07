@@ -7,6 +7,7 @@ const taxesContainer = document.querySelector('#Taxes')
 const paymentWindow = document.querySelector('#payment')
 const closePayment = document.querySelector('#closePayment')
 const cardButton = document.getElementById('card-button')
+const congrats = document.querySelector('#Congrats')
 let cart = JSON.parse(sessionStorage.getItem('order')).cart
 const user = JSON.parse(sessionStorage.getItem('user'))
 const localOrder = JSON.parse(sessionStorage.getItem('order'))
@@ -35,6 +36,7 @@ const createPayment = async (token) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${user.token}`,
     },
     body,
   })
@@ -147,6 +149,7 @@ if (cart) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify({ cart: transmitionCart, ...customer }),
       })
@@ -157,6 +160,10 @@ if (cart) {
       window.location.href = '/cart'
     }
   })
+
+  if (localOrder.amount >= 4800) {
+    congrats.classList.remove('d-none')
+  }
 
   taxesContainer.innerHTML = `<h4>Taxes:</h4><div class="mx-2">$${(
     localOrder.taxes / 100
@@ -183,6 +190,7 @@ if (cart) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
       },
       body: JSON.stringify({ localOrder, ...customer }),
     }).then((res) => {

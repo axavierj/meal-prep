@@ -1,11 +1,13 @@
 const template = `
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img src=${
-      window.location.href !== '/'
-        ? '../css/assets/logo_3_50.png'
-        : './css/assets/logo_3_50.png'
-    } alt="logo"> L&R</a>
+    <a class="navbar-brand" href="/">
+    <div class="d-flex gap-2">
+    <div class="bg-white">
+    <app-brand></app-brand>
+    </div>
+    <div>
+     LRCC</div></div></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -28,6 +30,12 @@ const template = `
         <li class="nav-item">
           <a class="nav-link" href="#contact">Contact</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#emailSignup">List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cake/">Cakes</a>
+        </li>
         
         <li class="nav-item">
           <a class="nav-link" href="/menu/">Menu</a>
@@ -49,7 +57,7 @@ class Navbar extends HTMLElement {
     this.logoutBtn.addEventListener('click', this.logout)
   }
   static get observedAttributes() {
-    return ['links']
+    return ['links', 'logo']
   }
   get links() {
     return this.getAttribute('links')
@@ -57,12 +65,12 @@ class Navbar extends HTMLElement {
   set links(value) {
     this.setAttribute('links', value)
   }
+
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
       this.render(name)
     }
   }
-
   logout() {
     sessionStorage.removeItem('user')
     window.location.href = '/login/'

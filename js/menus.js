@@ -31,11 +31,9 @@ const getMenuListItems = (menu) => {
 const setMenu = (menu) => {
   const menuTitle = document.querySelector('#menuTitle')
   const menuList = document.querySelector('#menuList')
-  const orderBtn = document.querySelector('#orderBtn')
 
   menuTitle.innerHTML = getMenuTitle(menu)
   menuList.innerHTML = getMenuListItems(menu)
-  orderBtn.innerHTML = ''
 }
 
 const getActiveMenu = async () => {

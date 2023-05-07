@@ -33,14 +33,14 @@ class LogInForm extends HTMLElement {
             <button class="btn btn-secondary">log in</button>
 
             <div class="form-check mt-3">
-              <input class="form-check-input" type="checkbox" value="" id="terms">
+              <input class="form-check-input" type="checkbox" checked id="terms">
               <label class="form-check-label" for="terms">
               accept our <a href="/terms/">terms and conditions</a>
               </label>
               
             </div>
             <div class="form-check mt-3">
-              <input class="form-check-input" type="checkbox" value="" id="privacy">
+              <input class="form-check-input" type="checkbox" checked id="privacy">
               <label class="form-check-label" for="privacy">
               accept our <a href="/privacy/">privacy statement</a>
               </label>
@@ -79,7 +79,15 @@ class LogInForm extends HTMLElement {
       if (response) {
         sessionStorage.setItem('user', JSON.stringify(response))
         e.target.reset()
-        window.location.href = '/order/'
+        //redirect back to last page
+      }
+      const referrer = document.referrer
+      if (referrer) {
+        window.location.href = referrer
+      }
+      // If there is no referrer, redirect to a default URL
+      else {
+        window.location.href = '/'
       }
     })
   }
